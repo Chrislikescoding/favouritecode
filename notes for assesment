@@ -1,0 +1,337 @@
+import sys
+>>> a = []
+>>> b = a
+>>> sys.getrefcount(a)
+
+Answers for the coding questions of the second assessment for the code first girls nanodegree, summer 2021
+"""
+
+# # # Question 1.
+
+# What is the program?
+""" A program is a set of instructions written by a person in a programming language that can be executed by a computer
+to perform a task that is specified in the code """
+
+# What is the process?
+""" This is the set of instructions currently being executed by a computer processor """
+
+# What is Cache?
+""" This is part of the CPU. It is a small amount of memory that temporarily stores instructions and data that will be
+reused by the CPU """
+
+# What is Thread and Multithreading?
+""" A thread is part of a process. Multiple threads can exist within one process that can execute at the same time. They
+share resources like memory. A thread is the smallest sequence of programmed instructions that can be managed by a
+scheduler """
+
+# What is GIL in Python and how does it work?
+""" GIL = Global interpreter lock. It is there to prevent multithreading from happening in memory concurrently and it
+stops race conditions """
+
+# What is Concurrency and Parallelism and what are the differences?
+""" Parallelism is where tasks run at the same time. Concurrency is where 2 or more tasks might not be running at the
+same time but they can start, run and complete in overlapping periods of time """
+
+# What do these stand for in programming: DRY, KISS, BDUF
+"""DRY: Don't repeat yourself, KISS: Keep is simple stupid, BDUF: Big design up front"""
+
+# What is Garbage collector? How does it work?
+"""The garbage collector removes dead objects from the memory when their reference counter = 0
+e.g.
+x1 = blah (reference counter for blah object 1 = 1)
+x2 = x1 (reference counter for blah object 1 = 2)
+x1 = None (reference counter for blah object 1 = 1)
+x2 = blah (creates a new blah object, blah object 2, and the first blah object reference counter = 0)
+The garbage collector would then remove this dead object from the memory """
+
+# What are ‘deadlock’ and ‘livelock’ in a relational database?
+""" Deadlock is where 2+ transactions are waiting for each other to give up locks on the database
+e.g. if a transaction locks rows in one table and needs to update rows in another table to finish that update, but a
+different transaction has a lock on those rows and IT needs to update rows that the first transaction has a lock on to
+finish its task then neither task can finish and there is a 'deadlock'.
+A livelock is where the transactions requests for locks are denied because the requests overlap with each other. To try
+and fix it the transactions adapt their requests, but the new requests also overlap - this is continous and is called a
+'livelock'.
+"""
+
+# What is Flask and what can we use it for?
+""" Flask is a 3rd party library that can be installed and used for developing web applications"""
+
+# # # Question 2. Discuss the difference between Python 2 and Python 3
+""" Python 2 was a previous version/release of python that was sunset. This was meant to happen in around 2015 but
+people continued to use it and so it didn't happen until 2020.
+There were some changes to functions and syntax between python 2 and python 3 such as in python 2 print was statement
+whereas in python 3 print is a function. There was also problems with integer division e.g. 3/2 = 1, decimals would have
+to be included to get the correct answer of 1.5 -> 3.0/2.0 = 1.5.
+ """
+
+# # # Question 3. Write a function that can define whether a word is a Palindrome or not  (a word, phrase, or sequence
+# # # that reads the same backwards as forwards, e.g. madam)
+
+def define_palindrome():
+    reversed_palindrome = palindrome[::-1]
+    is_palindrome = False
+    if (palindrome == reversed_palindrome):
+        is_palindrome = True
+    return is_palindrome
+
+
+palindrome = input("Enter the word to test for a palindrome: ")
+is_palindrome = define_palindrome()
+if is_palindrome:
+    print("It is a palindrome!")
+else:
+    print("Sorry! That is not a palindrome!")
+
+# # # Re-written for testing # # #
+
+def define_palindrome():
+    try:
+        palindrome = input("Enter the word to test for a palindrome: ").isalpha()
+        reversed_palindrome = palindrome[::-1]
+        is_palindrome = False
+        if (palindrome == reversed_palindrome):
+            is_palindrome = True
+        return is_palindrome
+    except TypeError:
+        raise Exception("Sorry! You have entered something that isn't a word!")
+
+is_palindrome = define_palindrome()
+if is_palindrome:
+    print("It is a palindrome!")
+else:
+    print("Sorry! That is not a palindrome!")
+
+# # # Question 4. Write tests for the newly created Palindrome function. Provide a brief explanation for your test
+# # # case options.
+
+"""This doesn't work but I can't fix it - too tired =) """
+@patch('builtins.input', lambda *args: 5)
+def test_define_palindrome_non_alpha_input():
+    with pytest.raises(Exception) as exception_info:
+        define_palindrome()
+    assert "isn't a word!" in str(exception_info.value)
+
+
+# # # Question 5. Agile methodology, Scrum: name at least 3 types of meetings that are exercised by Agile teams and
+# # # describe the objective of each meeting.
+"""
+A daily scrum: this is a meeting for the development team often held at the same time daily it is for discussing
+what has been worked on for the past 24 hours and what will be worked on for the next 24 hours and what are the impediments
+Sprint retrospective: this looks at the last sprint and looks at things that went well and things that need improving
+Sprint planning: this is for planning what work needs doing and how it will be completed, it is to get the development
+team and product owner on the same page. A sprint goal is created by the scrum team and the development team picks items
+from the backlog to achieve the goal. """
+Scrum master, scrum team, sprint 2 -4 weeks Sprint Planning meeting SM,PO, dev t. Produce Sprint backlog in SP meeting
+Daily scrum, what have you, what will you, impediments
+Outcome PSP potentially shippable product Sprint Review SHOWCASE Sprint retrospective What went well, what went wrong and
+
+# # # Question 6. Exception handling in Python, explain what each of the following blocks means in the program flow:
+"""
+Try: This is the code that is executed - literally try and execute this code - if it is fine carry on
+Except: If the code fails to run, this part of the code is there to catch whatever is wrong with it - a specific type
+of exception can and should be specified e.g. except TypeError will catch if a wrong type is entered for input e.g. a
+character instead of a number.
+Else: This part of the code is executed if there is no exception raised
+Finally: This part of the code is always executed
+"""
+
+# # # Question 7. How can we connect a Python program (process) with a database? Explain how it works and how do we
+# # # fetch / insert data into DB tables from a python program.
+""" To connect a database and a python program a module called mql connector would be installed into python. A config
+file is created with the database information in it and then a main file is created with functions to complete certain
+methods like GET which gets information from the database, POST which sends data to the database, PUT updates data on the
+server and replaces what was there and DELETE which deletes information
+e.g.
+@app.route('/fruitbowl')
+def get_fruit():
+    return jsonify(fruit)
+
+In this example it is querying the address <address>/fruitbowl and returning a list in the json format of fruits in the
+fruitbowl"""
+
+
+# # # Question 8. Given two SQL tables below: authors and books.
+# # # The authors dataset has 1M+ rows
+# # # The books dataset also has 1M+ rows
+# # # Create an SQL query that shows the TOP 3 authors who sold the most books in total!
+
+""" to do:
+- join the tables together based on some shared value
+- sort sold values descending(highest at the top), select top 3
+- must be booked sold column in books or authors
+SELECT TOP 3
+    FROM authors a
+        JOIN books b
+            ON a.book_name=b.book_name
+                ORDER BY sold_copies DESC
+"""
+
+
+# # # Question 9.
+"""
+- Write a function that accepts an array of number and an integer representing a target sum.
+- If any two numbers from the accepted numbers sum up to the target sum then the function should return them in array,
+in any order.
+- If no numbers sum to the target sum, the function should return an empty array.
+- The target has to be achieved using different numbers from the array.
+"""
+
+def two_number_sum(numbers, target):
+    summed_numbers = []
+    for number in numbers:
+        complementary_number = target - number
+        if complementary_number in summed_numbers:
+            return [number, complementary_number]
+        summed_numbers.append(number)
+    return []
+
+numbers = [3, 5, -4, 8, 11, 1, -1]
+target = 10
+
+result = two_number_sum(numbers, target)
+print(result)
+
+
+1.	What is Python and what are its main features?
+Python is a computer programming language
+Python is easy to use and popular
+Python is open source, interpreted, dynamically typed so no need to compile
+Python is extensible so can be used in other languages eg C/C++
+Python is a high-level language
+You do not need to know about the inner workings of a computer to use Python, for example garbage collection is taken care of
+
+2.	Discuss the difference between Python 2 and Python 3
+ Python 2 was released in 2000, Python 3 was released in 2008
+Python 2 has a more difficult syntax than Python 3
+Python 2 strings are stored as ASCII, Python 3 as Unicode
+Python 2 has not been in use since 2020 when it was retired
+Python 2 code can be ported to Python 3 but it is not easy. Python 3 is not backwardly compatible
+Python 2 has the ‘xrange’ function, Python 3 has a range function which is actually a new form of xrange. Python 2 had a range function but this function has been discarded in Python 3.
+The print function has changed from Python 2 to Python 3 and now requires quotes in Python 3
+Integer division has changed in Python 3, it used to produce an integer in Python2 but will now generate a float in Python 3
+
+3.	What is PEP 8?
+PEP 8 stands for Python Enhancement proposal. It is a document about Python, providing guidelines and best practice on how to write beautiful Python code.
+
+4.	In computing / computer science what is a program?
+A program is simply a list of instruction for the computer to perform, this list of instructions is ordered
+5. In computing / computer science what is a process?
+A process is an instance of a set of instructions (program)that is running in the system.
+
+6. In computing / computer science what is cache?
+A cache is a special storage area, usually used by a browser, to store files, scripts images, code, and other files to avoid downloading them repeatedly. More info added – small amount of faster memory used to improve performance, due to the demands of clients, cache data is stored temporarily in a local storage area to be used by the CPU,browsers, operating systems if required. When a client tries to access data, if the data is found there it is called a cache hit and that data will be re-used to save resources. If not found it is a cache miss. Some data must be disposed of when the storage area has no more room, this is decided by the cache algorithm. Caching can improve performance and reduce I/O operations
+
+
+7. In computing / computer science what is a thread and what do we mean by multithreading?
+       A thread is a part of a process, often called a “unit of execution”, my understanding is that an example of a unit of execution could be a program statement for example. A process can have multiple threads running at the same time. An example of multiple threads running at the same time could be Word for example, it can allow you to input text, while spell checking and/or grammar checking, generating a new line as you exceed the defined margin. This would be an example of multi-threading, where each thread appears to run at the same time. The threads will share the same application space but will run independently of each other.
+ Suppose you're reading a book, and you want to take a break right now, but you want to be able to come back and resume reading from the exact point where you stopped. One way to achieve that is by jotting down the page number, line number, and word number. So your execution context for reading a book is these 3 numbers.
+If you have a roommate, and she's using the same technique, she can take the book while you're not using it, and resume reading from where she stopped. Then you can take it back, and resume it from where you were.
+Threads work in the same way. A CPU is giving you the illusion that it's doing multiple computations at the same time. It does that by spending a bit of time on each computation. It can do that because it has an execution context for each computation. Just like you can share a book with your friend, many tasks can share a CPU.
+
+
+8.	In computing / computer science what is concurrency and parallelism and what are the differences?
+Concurrency is when two tasks start and run and finish in two time periods which overlap, the two threads may not run at exactly the same instant, although they may appear to. This can happen on a single core processor
+Parallelism is when tasks literally run at the same time. This can only happen on a multicore processor.
+
+9.	What is GIL in Python and how does it work?
+GIL is the global interpreter lock. Due to gill only one thread can be executing at a time because it only allows one thread to hold control of the Python interpreter
+
+10.	What do these software development principles mean: DRY, KISS, BDUF  Don’t Repeat yourself, Keep It Simple Stupid, Big Design Up Front
+
+
+11.What is a Garbage Collector in Python and how does it work?  Garbage Collector is an interface to garbage collection in Python, it allows disablement of the garbage collector, can change how often garbage collection runs and set debugging options. It provides access to objects that are unreachable but previously found by the garbage collector. Python performs garbage collection by counting reference to objects, Python will keep a count of the number of references to each object in memory and if the count is zero Python frees up the memory for something else. Reference cycles can occur when two objects reference each other, if these objects reference nothing else other than each other, they can be removed.
+
+
+12.	How is memory managed in Python?
+As memory space is not unlimited, a way of reducing the number of objects in memory is necessary. Python has an automatic garbage collection to clear up all these unused objects Python has a private “heap” which contains all Python objects and data structures. The Python memory manager takes care of these objects, a memory allocator makes sure that there is room in the heap for all Python related data and interacts with the system’s memory manager.
+
+As well as this there is item specific memory management for each object type, eg strings are treated differently from integers. The memory management is done automatically by the Python interpreter and the programmer does not have control to the private heap, it is taken care of by the interpreter
+
+12 REWORD THIS Python also uses a method called reference counting, python will calculate each object’s  number of references, it does have reference counts it will keep the object in memory, Python deletes the object when it has no more reference counts  Garbage collection is implemented in Python in two ways: reference counting and generational. When the reference count of an object reaches 0, reference counting garbage collection algorithm cleans up the object immediately. If you have a cycle, reference count doesn’t reach zero, you wait for the generational garbage collection algorithm to run and clean the object. While a programmer doesn’t have to think about garbage collection in Python, it can be useful to understand what is happening under the hood. a = 40      # Create object <40>
+b = a       # Increase ref. count  of <40>
+c = [b]     # Increase ref. count  of <40>
+del a       # Decrease ref. count  of <40>
+b = 100     # Decrease ref. count  of <40>
+c[0] = -1   # Decrease ref. count  of <40>
+
+
+13.	What is a Python module?
+A module is a library containing code that you might want to include in your program
+
+14.	What is docstring in Python?  docstring is a string literal that appears right after the definition of a function in literal quotes
+
+15.	What is pickling and unpickling in Python? Example usage.
+Pickling and unpickling are implementations of the serialization and deserialization of a isPython object hierarchy using binary protocols. Serialization is the conversion of an object to bytes and deserialization is the reverse – converting it back to an object hierarchy. A serialized object is more easily transmissible. An example could be when we want to transfer data from one server to another, perhaps over a network with a docket connection.
+
+16.	What are the tools that help to find bugs or perform static analysis?  Tools to help find bugs or perform static analysis within Python are:
+Pylint – checks for errors, enforces coding standards, suggests refactors, is highly configurable and can be used to create plugins
+	Pyflakes – analyses source, checking for errors, is relatively  	fast
+	Mypy 	- static checker, checks syntax
+Pyre – improves code quality by flagging type errors
+Pytype – checks code and flags mistakes, enforces type annotations
+
+
+17.	How are arguments passed in Python by value or by reference? Give an example. Arguments are passed by reference in Python.
+By reference means that the argument being passed is a reference to a variable that already exists in memory, not a copy to it. This means that when you run the function the variable can be changed if the function performs operations on the variable.
+
+ 	def set_list(my_list):
+   	    list = ["Python", "is", "fun"]
+   	    return list
+
+ 	my_list = []
+                 print(set_list(my_list))
+
+ 	output ['Python', 'is', 'fun']
+
+
+
+
+
+18.	What are Dictionary and List comprehensions in Python? Provide examples.
+
+A list is a way to store multiple items – as in cats below
+A dictionary stores items in key value pairs – as in owner_ cat below
+Lists and dictionaries are often assigned their values or keys and values using a for loop.
+Dictionaries and list comprehensions are an elegant way of assigning keys and values to lists and dictionaries in one line without needing to use a for loop.
+
+Examples
+1.copying one list to another for values that do not include a ‘u’
+
+cats = ["Blackie", "Tom", "Smudge" "Lucy"]
+
+newcat = [cat for cat in cats if 'u' not in cat ]
+
+output
+['Blackie', 'Tom']
+
+2. copying dictionary to another for values that do not include a ‘u’
+
+owner_cat = {"Dave":"Blackie","Chris":"Tom","Jas":"Smudge", "Sally":"Lucy"} a_dict = {k: v for (k, v) in owner_cat.items() if 'u' not in v} print(a_dict)
+output
+{'Dave': 'Blackie', 'Chris': 'Tom'}
+
+
+19. What is namespace in Python?
+When you assign a value to a variable, for example- my_string = ‘table’, my_string is known as a symbolic name that refers to ‘table’. You might do this hundreds of times in a program. To keep track of all the symbolic names, Python collects them as a collection of currently defined symbolic names and this collection is called a namespace..
+
+There are four types of namespace:
+Global – those namespaces defined at level of main program
+Built-In – namespace for all Python’s built in objects
+Enclosing – for a function nested inside another function, an enclosing namespace will be defined
+Local – a local namespace is for inside a function
+
+
+
+20.What is pass in Python?
+In Python pass is a placeholder for future code. You know you will need a function for example, but aren’t ready to write it yet, so you might put “pass” under the function name. Python then runs and accepts that there is no code to process for that function at the moment
+
+
+21. What is unit test in Python?
+I am assuming that this means unittest. Unittest is a unit testing framework that was originally inspired by JUnit(java) it can be used for test automation, adding code specifically for running tests, setting up tests in collections and keeping the tests independent.
+
+22. In Python what is slicing?
+Slicing in python is a way to return a subset (i.e. a part, of a string), you can specify start and end and then a slice object is returned
+example
+a = ("c", "a", "k", "e")
+x = slice(1, 3) print(a[x])

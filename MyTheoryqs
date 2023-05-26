@@ -1,0 +1,172 @@
+1.	What is Python and what are its main features?
+Python is a computer programming language
+Python is easy to use and popular
+Python is open source, interpreted, dynamically typed so no need to compile
+Python is extensible so can be used in other languages eg C/C++
+Python is a high-level language
+You do not need to know about the inner workings of a computer to use Python, for example garbage collection is taken care of
+
+2.	Discuss the difference between Python 2 and Python 3
+ Python 2 was released in 2000, Python 3 was released in 2008
+Python 2 has a more difficult syntax than Python 3
+Python 2 strings are stored as ASCII, Python 3 as Unicode
+Python 2 has not been in use since 2020 when it was retired
+Python 2 code can be ported to Python 3 but it is not easy. Python 3 is not backwardly compatible
+Python 2 has the ‘xrange’ function, Python 3 has a range function which is actually a new form of xrange. Python 2 had a range function but this function has been discarded in Python 3.
+The print function has changed from Python 2 to Python 3 and now requires quotes in Python 3
+Integer division has changed in Python 3, it used to produce an integer in Python2 but will now generate a float in Python 3
+
+3.	What is PEP 8?
+PEP 8 stands for Python Enhancement proposal. It is a document about Python, providing guidelines and best practice on how to write beautiful Python code.
+
+4.	In computing / computer science what is a program?
+A program is simply a list of instruction for the computer to perform, this list of instructions is ordered
+5. In computing / computer science what is a process?
+A process is an instance of a set of instructions (program)that is running in the system.
+
+6. In computing / computer science what is cache?
+A cache is a special storage area, usually used by a browser, to store files, scripts images, code, and other files to avoid downloading them repeatedly. More info added – small amount of faster memory used to improve performance, due to the demands of clients, cache data is stored temporarily in a local storage area to be used by the CPU,browsers, operating systems if required. When a client tries to access data, if the data is found there it is called a cache hit and that data will be re-used to save resources. If not found it is a cache miss. Some data must be disposed of when the storage area has no more room, this is decided by the cache algorithm. Caching can improve performance and reduce I/O operations
+
+
+7. In computing / computer science what is a thread and what do we mean by multithreading?
+       A thread is a part of a process, often called a “unit of execution”, my understanding is that an example of a unit of execution could be a program statement for example. A process can have multiple threads running at the same time. An example of multiple threads running at the same time could be Word for example, it can allow you to input text, while spell checking and/or grammar checking, generating a new line as you exceed the defined margin. This would be an example of multi-threading, where each thread appears to run at the same time. The threads will share the same application space but will run independently of each other.
+ Suppose you're reading a book, and you want to take a break right now, but you want to be able to come back and resume reading from the exact point where you stopped. One way to achieve that is by jotting down the page number, line number, and word number. So your execution context for reading a book is these 3 numbers.
+If you have a roommate, and she's using the same technique, she can take the book while you're not using it, and resume reading from where she stopped. Then you can take it back, and resume it from where you were.
+Threads work in the same way. A CPU is giving you the illusion that it's doing multiple computations at the same time. It does that by spending a bit of time on each computation. It can do that because it has an execution context for each computation. Just like you can share a book with your friend, many tasks can share a CPU.
+
+
+8.	In computing / computer science what is concurrency and parallelism and what are the differences?
+Concurrency is when two tasks start and run and finish in two time periods which overlap, the two threads may not run at exactly the same instant, although they may appear to. This can happen on a single core processor
+Parallelism is when tasks literally run at the same time. This can only happen on a multicore processor.
+
+9.	What is GIL in Python and how does it work?
+GIL is the global interpreter lock. Due to gill only one thread can be executing at a time because it only allows one thread to hold control of the Python interpreter
+
+10.	What do these software development principles mean: DRY, KISS, BDUF  Don’t Repeat yourself, Keep It Simple Stupid, Big Design Up Front
+
+
+11.What is a Garbage Collector in Python and how does it work?  Garbage Collector is an interface to garbage collection in Python, it allows disablement of the garbage collector, can change how often garbage collection runs and set debugging options. It provides access to objects that are unreachable but previously found by the garbage collector. Python performs garbage collection by counting reference to objects, Python will keep a count of the number of references to each object in memory and if the count is zero Python frees up the memory for something else. Reference cycles can occur when two objects reference each other, if these objects reference nothing else other than each other, they can be removed.
+
+
+12.	How is memory managed in Python?
+As memory space is not unlimited, a way of reducing the number of objects in memory is necessary. Python has an automatic garbage collection to clear up all these unused objects Python has a private “heap” which contains all Python objects and data structures. The Python memory manager takes care of these objects, a memory allocator makes sure that there is room in the heap for all Python related data and interacts with the system’s memory manager.
+
+As well as this there is item specific memory management for each object type, eg strings are treated differently from integers. The memory management is done automatically by the Python interpreter and the programmer does not have control to the private heap, it is taken care of by the interpreter
+
+12 REWORD THIS Python also uses a method called reference counting, python will calculate each object’s  number of references, it does have reference counts it will keep the object in memory, Python deletes the object when it has no more reference counts  Garbage collection is implemented in Python in two ways: reference counting and generational. When the reference count of an object reaches 0, reference counting garbage collection algorithm cleans up the object immediately. If you have a cycle, reference count doesn’t reach zero, you wait for the generational garbage collection algorithm to run and clean the object. While a programmer doesn’t have to think about garbage collection in Python, it can be useful to understand what is happening under the hood. a = 40      # Create object <40>
+b = a       # Increase ref. count  of <40>
+c = [b]     # Increase ref. count  of <40>
+del a       # Decrease ref. count  of <40>
+b = 100     # Decrease ref. count  of <40>
+c[0] = -1   # Decrease ref. count  of <40>
+
+
+13.	What is a Python module?
+A module is a library containing code that you might want to include in your program
+
+14.	What is docstring in Python?  docstring is a string literal that appears right after the definition of a function in literal quotes
+
+15.	What is pickling and unpickling in Python? Example usage.
+Pickling and unpickling are implementations of the serialization and deserialization of a isPython object hierarchy using binary protocols. Serialization is the conversion of an object to bytes and deserialization is the reverse – converting it back to an object hierarchy. A serialized object is more easily transmissible. An example could be when we want to transfer data from one server to another, perhaps over a network with a docket connection.
+
+16.	What are the tools that help to find bugs or perform static analysis?  Tools to help find bugs or perform static analysis within Python are:
+Pylint – checks for errors, enforces coding standards, suggests refactors, is highly configurable and can be used to create plugins
+	Pyflakes – analyses source, checking for errors, is relatively  	fast
+	Mypy 	- static checker, checks syntax
+Pyre – improves code quality by flagging type errors
+Pytype – checks code and flags mistakes, enforces type annotations
+
+
+17.	How are arguments passed in Python by value or by reference? Give an example. Arguments are passed by reference in Python.
+By reference means that the argument being passed is a reference to a variable that already exists in memory, not a copy to it. This means that when you run the function the variable can be changed if the function performs operations on the variable.
+
+ 	def set_list(my_list):
+   	    list = ["Python", "is", "fun"]
+   	    return list
+
+ 	my_list = []
+                 print(set_list(my_list))
+
+ 	output ['Python', 'is', 'fun']
+
+
+
+
+
+18.	What are Dictionary and List comprehensions in Python? Provide examples.
+
+A list is a way to store multiple items – as in cats below
+A dictionary stores items in key value pairs – as in owner_ cat below
+Lists and dictionaries are often assigned their values or keys and values using a for loop.
+Dictionaries and list comprehensions are an elegant way of assigning keys and values to lists and dictionaries in one line without needing to use a for loop.
+
+Examples
+1.copying one list to another for values that do not include a ‘u’
+
+cats = ["Blackie", "Tom", "Smudge" "Lucy"]
+
+newcat = [cat for cat in cats if 'u' not in cat ]
+
+output
+['Blackie', 'Tom']
+
+2. copying dictionary to another for values that do not include a ‘u’
+
+owner_cat = {"Dave":"Blackie","Chris":"Tom","Jas":"Smudge", "Sally":"Lucy"} a_dict = {k: v for (k, v) in owner_cat.items() if 'u' not in v} print(a_dict)
+output
+{'Dave': 'Blackie', 'Chris': 'Tom'}
+
+
+19. What is namespace in Python?
+When you assign a value to a variable, for example- my_string = ‘table’, my_string is known as a symbolic name that refers to ‘table’. You might do this hundreds of times in a program. To keep track of all the symbolic names, Python collects them as a collection of currently defined symbolic names and this collection is called a namespace..
+
+There are four types of namespace:
+Global – those namespaces defined at level of main program
+Built-In – namespace for all Python’s built in objects
+Enclosing – for a function nested inside another function, an enclosing namespace will be defined
+Local – a local namespace is for inside a function
+
+
+
+20.What is pass in Python?
+In Python pass is a placeholder for future code. You know you will need a function for example, but aren’t ready to write it yet, so you might put “pass” under the function name. Python then runs and accepts that there is no code to process for that function at the moment
+
+
+21. What is unit test in Python?
+I am assuming that this means unittest. Unittest is a unit testing framework that was originally inspired by JUnit(java) it can be used for test automation, adding code specifically for running tests, setting up tests in collections and keeping the tests independent.
+
+22. In Python what is slicing?
+Slicing in python is a way to return a subset (i.e. a part, of a string), you can specify start and end and then a slice object is returned
+example
+a = ("c", "a", "k", "e")
+x = slice(1, 3) print(a[x])
+output = ('a', 'k')
+
+23. What is a negative index in Python?
+A negative index means that you start from the end of the string, for example -1 means the last character of a string ,-2 the last but one character and so on
+
+
+24.How can the ternary operators be used in python? Give an example.  A ternary operator can be used to write conditional statements in Python and combine them into one line instead of a block of code. The line will consist of a condition, a true value and a false value: e.g.
+coach_ticket = 5 if age >= 65 else 10
+
+
+25.	What does this mean: *args, **kwargs? And why would we use it?  *args denotes arguments  passed to a function, *args is used when the total number of arguments that will be passed is not known  **kwargs denotes arguments  passed to a function, **kwargs is used when the total number of arguments that will be passed is not known
+
+
+26.	How are range and xrange different from one another?  range returns a list of integers, can be slow, and takes more memory, it was originally  from Python 2, but was discarded in Python 3 xrange returns an xrange generator object, is faster, takes less memory, Python 3 xrange has been renamed to range, the old Python 3 range is  decommissioned
+
+27.	What is Flask and what can we use it for?
+Flask is a web application framework and comes in the form of a Python module. We can use it to easily develop web applications.
+
+28.	What are clustered and non-clustered index in a relational database?  The purpose of any index is to make accessing a file more efficient. To give an example, if we write an SQL statement to query a large file which has a lot of data then the SQL will have to search each record, one at a time to find the row or rows that we have selected. This is known as sequential processing and the bigger the file the longer it will take and the more it will drain the computer processor’s resources. If the table has an index then the database optimizer can locate the data more efficiently and quickly by using the index to point to the data.
+
+A clustered index  is an index defining the way the data is physically stored in the table. It will be based on the key values of the table. There can usually only be one clustered index per table. When a table is created with a primary key, in some RDCMS a clustered index will automatically be created by the default
+
+An unclustered index has a structure which does not match the order that the rows are physically (i.e. in reality) stored on the file. A unclustered key index value has a pointer to the data row that contains the key value and is permitted to contain non key values
+
+29. What is a ‘deadlock’ a relational database?
+A deadlock is a state that occurs in an operating system where each member of a group of actions is waiting for another member to release a lock.  The action or process is stuck indefinitely because it can’t get the lock that it needs because another action has it so nothing can move forward It is like meeting someone in a narrow passage and you both move over to let the other one past but block each other, this happens continuously.
+
+30.What is a ‘livelock’ a relational database?
+A Livelock is a situation where a request for an exclusive lock is denied repeatedly, as many overlapping shared locks keep on interfering each other. The processes keep on changing their status to try and accomplish the action they need to do and they are changing continuously. It’s a bit like calling a friend and finding them engaged because they are calling you at the same time, you stop and try again but the same thing happens again and again.
+ 	  

@@ -1,0 +1,37 @@
+CREATE Database bookshop;
+Use bookshop;
+
+CREATE TABLE books (book_id int, book_name varchar(255), author_id int);
+CREATE TABLE authors (author_id int, author_name varchar(100));
+
+INSERT into books (book_id,book_name,author_id)
+VALUES (1, 'Bleak house' ,1), (2, 'Black Beauty' ,2),(3, 'Oliver Twist',1),(4, 'David Copperfield',1),(5, 'Nicholas Nickleby',1),(6, 'Barnaby Rudge',1);
+
+INSERT into books (book_id,book_name,author_id)
+VALUES (7, 'Tess of the Durbervilles' ,3), (8, 'Underneath the Greenwood Tree' ,3),(9, 'Jude The Obscure',3);
+
+INSERT into books (book_id,book_name,author_id)
+VALUES (13, '101 Dalmatians' ,5);
+
+CREATE INDEX authorbook_id
+on books(author_id,book_id);
+ALTER TABLE books
+ADD PRIMARY KEY(author_id,book_id);
+
+CREATE INDEX author_id
+on authors(author_id);
+ALTER TABLE authors
+ADD PRIMARY KEY(author_id);
+
+INSERT into authors (author_id,author_name)
+VALUES (4, 'Philp Pullman' ), (5, 'Dodie Smith');
+
+SELECT * from books;
+SELECT * from authors;
+
+SELECT * from authors a join books b on a.author_id = b.author_id;
+SET SQL_SAFE_UPDATES = 0;
+Update  books set book_sales = 110 where author_id = 5;
+
+SELECT author_name, SUM(sold_copies) from authors a LEFT join books b on a.book_name = b.book_name
+GROUP BY author_name,sold_copies ORDER by SUM(sold_copies) DESC LIMIT 3;
